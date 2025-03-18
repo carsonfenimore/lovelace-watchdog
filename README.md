@@ -20,9 +20,12 @@ good_background_color: green
 good_text_color: white
 bad_background_color: green
 bad_text_color: white
-ha_error_seconds: 60
-
+error_if_no_update_seconds: 12
+alarm_flash_period: 2
+blink_color: rgba(255,0,0,.5)
 ```
 
-This produces something like the following: ![state with no errors](img/lovelace_watchdog_no_errors.jpg)
+This produces something like the following if eveything is updating: ![state with no errors](img/good.png)
+
+If more than the threshold has elapsed, the colors change and the card blinks: ![state with errors](img/bad.png)
 

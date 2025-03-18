@@ -25,6 +25,7 @@ class LovelaceWatchdog extends LitElement {
         text-align: center;
         line-height: 50px;
         font-size: 20px;
+        font-weight: 800;
     }
 	@keyframes blinker {
 	  50% {

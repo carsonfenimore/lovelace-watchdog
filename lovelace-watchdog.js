@@ -11,6 +11,7 @@ function t(t,e,i,s){var o,n=arguments.length,r=n<3?e:null===s?s=Object.getOwnPro
         text-align: center;
         line-height: 50px;
         font-size: 20px;
+        font-weight: 800;
     }
 	@keyframes blinker {
 	  50% {

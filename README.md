@@ -23,10 +23,12 @@ bad_text_color: white
 error_if_no_update_seconds: 12
 alarm_flash_period: 2
 blink_color: rgba(255,0,0,.5)
+entity: binary_sensor.10_10_10_5
 ```
 
 This produces something like the following if eveything is updating: ![state with no errors](img/good_med.png)
 
 If more than the threshold has elapsed, the colors change and the card blinks: ![state with errors](img/bad_med.png)
 
+Note the optional entity can be any binary sensor.  If provided the card will show bad status if the entity is not 'on', or if the time of last update is beyond the threshold.
 

@@ -10,7 +10,7 @@ Note that the watchdog function is purposefully done on the frontend, not on the
 In order to use this plugin put lovelace-watchdog.js into your HA wwww directory, then go to your HA lovelace settings and add it as a lovelace resource.
 
 # Card Creation
-The card can be used as follows:
+The card can be used as follows - all settings are optional:
 
 ```yaml
 type: custom:lovelace-watchdog

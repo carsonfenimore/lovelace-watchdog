@@ -25,8 +25,8 @@ alarm_flash_period: 2
 blink_color: rgba(255,0,0,.5)
 ```
 
-This produces something like the following if eveything is updating: ![state with no errors](img/good.png)
+This produces something like the following if eveything is updating: ![state with no errors](img/good_med.png)
 
-If more than the threshold has elapsed, the colors change and the card blinks: ![state with errors](img/bad.png)
+If more than the threshold has elapsed, the colors change and the card blinks: ![state with errors](img/bad_med.png)
 
 

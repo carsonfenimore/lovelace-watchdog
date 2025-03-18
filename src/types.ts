@@ -9,4 +9,5 @@ bad_text?: string;
 error_if_no_update_seconds?: number;
 alarm_flash_period?: number;
 blink_color?: string;
+entity?: string;  //optional binary entity; can be 'on' or 'off'
 }

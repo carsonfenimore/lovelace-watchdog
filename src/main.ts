@@ -86,7 +86,7 @@ class LovelaceWatchdog extends LitElement {
 
   getBackground(hasError){
     const defaultBGGood = "green";
-    const defaultBGBad = "red";
+    const defaultBGBad = "grey";
     return this.getColor(hasError, this._config.good_background_color, this._config.bad_background_color, defaultBGGood, defaultBGBad);
   }
 
@@ -112,23 +112,47 @@ class LovelaceWatchdog extends LitElement {
     if (this._config.error_if_no_update_seconds)
         errorThreshSecs = this._config.error_if_no_update_seconds;
 
+    var entityError = false;
+    if (this._hass && this._config.entity){
+        var lookup = this._hass.states[this._config.entity];
+        entityError = (lookup && lookup.state != "on");
+    }
+
     const secsDelta = this.dateDifferenceInSeconds(this._hassReceived, new Date());
-    const hasError = secsDelta > errorThreshSecs;
-    console.log(`Delta ${secsDelta}, error thresh ${errorThreshSecs}, errored? ${hasError}`);
+    const haError = secsDelta > errorThreshSecs;
+
+    const hasError = haError || entityError;
+    //console.log(`Delta ${secsDelta}, error thresh ${errorThreshSecs}, errored? ${hasError}`);
 
     var text;
-    if (hasError) {
-       text = this._config.bad_text ? this._config.bad_text : "HA Not Updating";
-       text = text + ` (${secsDelta}s ago)`;
+    var subtext;
+    if (haError) {
+        const defHAError = "HA Not Updating";
+        if (this._config.entity) 
+            text = defHAError;
+        else
+            text = this._config.bad_text ? this._config.bad_text : defHAError;
+        subtext = html`<br/><span style="font-size: 16px">Last updated ${secsDelta}s ago</span>`;
     } else {
-       text = this._config.good_text ? this._config.good_text : "HA Updating";
+        if (this._config.entity){
+           if (entityError)
+               text = this._config.bad_text ? this._config.bad_text : "Entity error";
+           else 
+               text = this._config.good_text ? this._config.good_text : "Entity Good";
+        }
+        else  {
+           text = this._config.good_text ? this._config.good_text : "HA Good";
+        }
     }
+    var lineHeight = this._height;
+    if (subtext)
+        lineHeight = this._height /2;
 
     var blinker;
     if (hasError){
         blinker = this.getBlinkMe();
     }
-    return html`<div class="watchdog" style="width: 100%; height: ${this._height}px;  background-color: ${this.getBackground(hasError)}">&nbsp;</div>${blinker}<div class="watchdog" style="color: ${this.getForeground(hasError)}; background-color: none; position: absolute; width: 100%; height: ${this._height}px; left: 0px; top: 0px;">${text}</div>`;
+    return html`<div class="watchdog" style="width: 100%; height: ${this._height}px;  background-color: ${this.getBackground(hasError)}">&nbsp;</div>${blinker}<div class="watchdog" style="color: ${this.getForeground(hasError)}; background: none; position: absolute; width: 100%; height: ${this._height}px; line-height: ${lineHeight}px; left: 0px; top: 0px;">${text}${subtext}</div>`;
   }
 
   getCardSize() {

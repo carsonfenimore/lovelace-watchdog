@@ -91,7 +91,7 @@ class LovelaceWatchdog extends LitElement {
   }
 
   getForeground(hasError){
-    const defaultFGGood = "black";
+    const defaultFGGood = "white";
     const defaultFGBad = "white";
     return this.getColor(hasError, this._config.good_text_color, this._config.bad_text_color, defaultFGGood, defaultFGBad);
   }

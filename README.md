@@ -29,3 +29,4 @@ This produces something like the following if eveything is updating: ![state wit
 
 If more than the threshold has elapsed, the colors change and the card blinks: ![state with errors](img/bad.png)
 
+
